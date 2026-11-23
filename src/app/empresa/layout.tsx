@@ -7,8 +7,9 @@ export const metadata: Metadata = { title: "Painel da empresa", robots: { index:
 
 export default async function EmpresaLayout({ children }: { children: React.ReactNode }) {
   const { supabase, user, profile } = await requireUser("/empresa");
-  const q = supabase.from("partners").select("*").order("created_at");
-  const { data } = profile.role === "admin" ? await q.limit(1) : await q.eq("owner_id", user.id);
+  // Ordem estável (data e depois id) para o layout e as abas mostrarem sempre a mesma empresa.
+  const q = supabase.from("partners").select("*").order("created_at").order("id");
+  const { data } = profile.role === "admin" ? await q.eq("status", "approved").limit(1) : await q.eq("owner_id", user.id);
   const partner = (data?.[0] as Partner | undefined) ?? null;
 
   if (!partner) {
