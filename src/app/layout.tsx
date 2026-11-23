@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Inter, JetBrains_Mono } from "next/font/google";
+// Fontes empacotadas no projeto: o build não depende de baixar nada do Google Fonts.
+import "@fontsource-variable/inter";
+import "@fontsource-variable/bricolage-grotesque";
+import "@fontsource/jetbrains-mono/latin-500.css";
+import "@fontsource/jetbrains-mono/latin-700.css";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { SITE_URL } from "@/lib/format";
-
-const bricolage = Bricolage_Grotesque({ subsets: ["latin"], variable: "--font-bricolage", weight: ["500", "700", "800"] });
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const jetbrains = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains", weight: ["500", "700"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="pt-BR">
-      <body className={`${bricolage.variable} ${inter.variable} ${jetbrains.variable}`}>
+      <body>
         <Header />
         <main>{children}</main>
         <Footer />
